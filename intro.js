@@ -63,6 +63,10 @@ function showSkills() {
         {name: 'css', endorsements: 12, endorsedBy: 'Vasile I'},
         {name: 'nodejs', endorsements: 3}
     ];
+
+    skills.sort(function(a,b){
+       return b.endorsements - a.endorsements; 
+    });
     
     var htmlSkills = skills.map(function(skill) {
         var endorsedBy = skill.endorsedBy ? ' - ' + skill.endorsedBy : '';
@@ -79,7 +83,6 @@ showPage('skills-page');
 
 showSkills();
 
-initMenu();
 
 
 
