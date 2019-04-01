@@ -54,17 +54,8 @@ function hideAllPages() {
 
 initMenu();
 
-function showSkills() {
-    //var allEndorsements = [8, 12, 19, 3];
-    //var skills = ['html', 'css', 'js', 'nodejs'];
-    var skills = [ 
-        {name: 'js', endorsements: 20, endorsedBy: 'Andrei I'}, 
-        {name: 'html', endorsements: 8}, 
-        {name: 'css', endorsements: 12, endorsedBy: 'Vasile I'},
-        {name: 'nodejs', endorsements: 3}
-    ];
-
-    skills.sort(function(a,b){
+function showSkills(skills) {
+       skills.sort(function(a,b){
        return b.endorsements - a.endorsements; 
     });
     
@@ -81,7 +72,23 @@ function showSkills() {
 hideAllPages();
 showPage('skills-page');
 
-showSkills();
+
+//TODO load skills.json and pass them to showSkills
+
+console.log('1 before loading');
+fetch('data/skills.json')
+  .then(function(response) {
+    console.info('2 loaded skills.json');  
+    return response.json();
+  })
+  .then(function(skills) {
+    console.log('3 skills', myJson);
+    showSkills(myJson);
+  });
+
+console.log('4 after load');
+
+
 
 
 
