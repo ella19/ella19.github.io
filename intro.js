@@ -80,13 +80,14 @@ fetch('data/skills.json')
   .then(function(response) {
     console.info('2 loaded skills.json');  
     return response.json();
-  })
-  .then(function(skills) {
-    console.log('3 skills', myJson);
-    showSkills(myJson);
+  }).then(function(skills) {
+    console.log('3 skills', skills);
+    showSkills(skills);
   });
 
 console.log('4 after load');
+
+
 
 
 
