@@ -1,6 +1,9 @@
 body {
-    background-color: #ccc;
     margin: 0;
+}
+
+.logo {
+    text-align: center;
 }
 
 .test {
