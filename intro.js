@@ -1,92 +1,59 @@
-function getWelcomeMsg() {
-    return "Welcome to my site!";
-}
-
 function getColor() {
     var date = new Date();
     console.log(date.getMinutes());
     if (date.getMinutes() > 18) {
-        return "green"
-    } 
-    return "red";
-}
-
-var welcome = getWelcomeMsg();
-console.info(welcome);
-
-var summaryElement = document.getElementById("summary");
-console.info("summaryElement", summaryElement);
-var color= getColor();
-summaryElement.style.color = color;
-
-
-
-function hidePage(page) {
-    var el = document.getElementById(page);
-    el.style.display = 'none';
-}
-function showPage(page) {
-    document.getElementById(page).style.display = 'block';
-}
-
-
-function initMenu() {
-    var links = document.querySelectorAll("#top-menu-bar a");
-    console.info(links);
-    for(var i = 0; i < links.length; i++) {
-        links[i].onclick = clickOnMenuItem;
-   }
-}
-
-function clickOnMenuItem () {
-    hideAllPages();
-    var pageId = this.getAttribute('data-page');
-    console.warn({pageId});
-    showPage(pageId);
-}
-
-function hideAllPages() {
-    var pages = document.querySelectorAll('.page');
-    for(var i = 0; i < pages.length; i++) {
-        pages[i].style.display = 'none';
+        return "black";
     }
+    return "Red";
 }
 
-initMenu();
+var socialElement = document.getElementById("social");
+console.info("socialElement", socialElement);
+var color = getColor();
+socialElement.style.color = color;
 
-function showSkills(skills) {
-       skills.sort(function(a,b){
-       return b.endorsements - a.endorsements; 
+
+
+
+function initEvents() {
+    document.querySelectorAll('.top-menu-bar a').forEach(function(a){
+        a.addEventListener('click', function(e){
+             console.debug('merge', e.target);
+             var page = e.target.getAttribute('data-page');
+             hidePages();
+             showPage(page);
+        })
     });
     
-    var htmlSkills = skills.map(function(skill) {
-        var endorsedBy = skill.endorsedBy ? ' - ' + skill.endorsedBy : '';
-        var endorsements = ` <span class="endorsement">(${skill.endorsements}${endorsedBy})</span>`;
-        return '<li>' + skill.name.toUpperCase() + endorsements + '</li>';
-    }); 
-    
-    var ul = document.querySelector('#skills-page ul');
-    ul.innerHTML = htmlSkills.join('');
+}
+function hidePages() {
+    var pages = document.querySelectorAll('.page');
+    pages.forEach(function (page) {
+        page.style.display = 'none';
+    });
 }
 
-hideAllPages();
-showPage('skills-page');
+function showPage(page) {
+        document.querySelector(`#${page}-page`).style.display = 'block';
+}
 
+initEvents();
 
-//TODO load skills.json and pass them to showSkills
+function renderSkills(skills) {
+    var ul = document.querySelector('#skills-page ul');
 
-console.log('1 before loading');
-fetch('data/skills.json')
-  .then(function(response) {
-    console.info('2 loaded skills.json');  
-    return response.json();
-  }).then(function(skills) {
-    console.log('3 skills', skills);
-    showSkills(skills);
-  });
+    console.warn('skills', skills);
+    
+    ul.innerHTML = skills.map(function(skill){
+        return `<li>${skill.name}</li>`
+    }).join('');
+}
 
-console.log('4 after load');
-
+fetch('data/skills.json').then(function(resp){
+    return resp.json();
+}).then(function(skills){
+    renderSkills(skills);
+})
 
 
 

@@ -1,7 +1,7 @@
 [
-   {"name": "js", "endorsements": 21, "endorsedBy": "Andrei I"}, 
-   {"name": "html", "endorsements": 8}, 
-   {"name": "css", "endorsements": 12, "endorsedBy": "Vasile I"}, 
-   {"name": "nodejs", "endorsements": 3},
-   {"name": "vscode", "endorsements": 0}
+   {"name": "JS"},
+   {"name": "NODEJS"},
+   {"name": "HTML"},
+   {"name": "CSS"},
+   {"name": "VSCODE"}
 ]
